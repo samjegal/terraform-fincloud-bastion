@@ -63,6 +63,16 @@ resource "fincloud_subnet" "bastion" {
 }
 
 # Bastion 라우트 테이블 (추가 예정)
+# resource "fincloud_route_table" "bastion" {
+#   vpc_id = var.vpc_id
+
+#   name  = format("%s-bastion-rt-public", var.prefix)
+#   usage = "public"
+
+#   subnet = [
+#     fincloud_subnet.bastion.id
+#   ]
+# }
 
 # Bastion 서버에 할당될 네트워크 인터페이스
 resource "fincloud_network_interface" "bastion" {
@@ -108,6 +118,7 @@ resource "fincloud_server" "bastion" {
   ]
 }
 
+# Bastion 공인 IP
 resource "fincloud_public_ip" "bastion" {
   server_id = fincloud_server.bastion.id
 }
